@@ -37,5 +37,5 @@ ax = plt.axes(projection=ccrs.Mercator(central_longitude=0,
 ax.background_img(name='BM', resolution='low')
 ax.set_extent([-170, 179, -65, 70], crs=ccrs.PlateCarree())
 ```
-![alt text](https://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73726/world.topo.bathy.200406x294x196.jpg "Sample Map")
+![alt text](https://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73726/world.topo.bathy.200406.3x5400x2700.jpg "Sample Map")
 
