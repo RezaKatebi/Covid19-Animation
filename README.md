@@ -8,7 +8,7 @@ This repo creates animation to visualize the spread of the virus.
 - Cartopy (instruction on instalaion is provided)
 
 # Cartopy Installation and Custom Map Guide
-Cartopy is a package that is used to visualize maps on geological data. To install it first make a conda enviroment and then install cartopy ```conda install -c conda-forge cartopy```. 
+Cartopy is a package that is used to visualize maps on geological data. To install it first make a conda enviroment and then install cartopy using ```conda install -c conda-forge cartopy```. 
 
 To use custom background image, first use the following commands to find the path of the caratopy in the eniroment:
 ```python
