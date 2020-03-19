@@ -20,7 +20,7 @@ class DFLoader(object):
         max_val = df_merged["Confirmed"].max()
         df_merged["ConfNorm"] = (df_merged["Confirmed"]-min_val)/(max_val-min_val)
         df_merged["DeathNorm"] = (df_merged["Deaths"]-min_val)/(max_val-min_val)
-        df_merged["RevoverNorm"] = (df_merged["Recovered"]-min_val)/(max_val-min_val)
+        df_merged["RecoverNorm"] = (df_merged["Recovered"]-min_val)/(max_val-min_val)
         last_date = df_merged.Date.unique()[-1]
         max_last_day = df_merged.loc[df_merged["Date"]==last_date, "Confirmed"].sum()
         return df_merged, max_last_day
