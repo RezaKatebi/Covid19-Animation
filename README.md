@@ -25,4 +25,17 @@ Next, from [NASA Blue Marble](https://visibleearth.nasa.gov/collection/1484/blue
       "low": "BM.jpg",
       "high": "BM_highres.png"}
 ```
+Now if you import the packages and use the following commands you will see earth map:
+```python
+import matplotlib.pyplot as plt
+import cartopy.crs as ccrs
+
+fig = plt.figure(figsize=(19.2, 10.8))
+ax = plt.axes(projection=ccrs.Mercator(central_longitude=0,  
+                                       min_latitude=-65,
+                                       max_latitude=70))
+ax.background_img(name='BM', resolution='low')
+ax.set_extent([-170, 179, -65, 70], crs=ccrs.PlateCarree())
+```
+
 
