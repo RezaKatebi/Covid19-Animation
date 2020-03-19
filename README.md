@@ -37,5 +37,5 @@ ax = plt.axes(projection=ccrs.Mercator(central_longitude=0,
 ax.background_img(name='BM', resolution='low')
 ax.set_extent([-170, 179, -65, 70], crs=ccrs.PlateCarree())
 ```
-
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
 
