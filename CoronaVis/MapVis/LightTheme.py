@@ -70,7 +70,7 @@ class BlueMarble(object):
         y_pos = np.arange(len(numbers))
 
         for i, v in enumerate(numbers):
-            ax1.text(v, i, str(v), color=colors[i], fontweight='bold', fontsize=fontsize_labels)
+            ax1.text(v, i, str(v), color=colors[i], fontweight='bold', fontsize=fontsize_labels, verticalalignment='center')
 
         ax1.barh(y_pos, numbers, color=colors)
         ax1.set_xlim(0, self.max_val)
