@@ -15,6 +15,14 @@ To use custom background image, first use the following commands to find the pat
 import cartopy 
 import os 
 os.path.join(cartopy.__path__[0], "data", "raster", "natural_earth")
-
+```
+Next, from [NASA Blue Marble](https://visibleearth.nasa.gov/collection/1484/blue-marble) download both low (.jpg) and high resolution (.png) version of your favorite map to prjoect into the background and move then to ```natural_earth``` folder. Next, edit ```images.json``` file in the same folder and add something like the following the the json dict:
+```python 
+"BM": {
+      "__comment__": "June, Blue Marble Next Generation w/ Topography and Bathymetry",
+      "__source__": "https://neo.sci.gsfc.nasa.gov/view.php?datasetId=BlueMarbleNG-TB",
+      "__projection__": "PlateCarree",
+      "low": "BM.jpg",
+      "high": "BM_highres.png"}
 ```
 
