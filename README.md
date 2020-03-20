@@ -11,6 +11,7 @@ The software depends on
 - Pandas
 - Cartopy >= 0.17 (instruction on instalaion is provided)
 - Basemap
+- tqdm
 - ffmpeg (for making .mp4 animation)
 
 ## Cartopy Installation and Custom Map Guide
