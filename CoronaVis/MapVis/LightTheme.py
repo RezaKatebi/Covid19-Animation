@@ -1,3 +1,11 @@
+'''
+    BlueMarbel
+    
+    developed by Reza Katebi and Mehdi Rezaie Katebi&Rezaie Co.
+    based on https://medium.com/udacity/creating-map-animations-with-python-97e24040f17b
+    by Mat Leonard
+'''
+
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -63,6 +71,10 @@ class BlueMarble(object):
                 color='white',
                 fontsize=fontsize_date,
                 transform=ccrs.PlateCarree())
+        
+        msg = '(c) Katebi&Rezaie\ngithub.com/RezaKatebi/Covid19-Animation'
+        self.ax.text(-165, -62, msg, color='white', 
+                     fontsize=5, transform=ccrs.PlateCarree())  
 
 
         ax1 = self.fig.add_axes([0.4, 0.04, 0.3, 0.15])
