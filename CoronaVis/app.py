@@ -10,7 +10,7 @@ def main():
     ap.add_argument("-m", "--movie",
                     default=False,
                     action="store_true",
-                    help="Use -m to activate!")
+                    help="Use -m to make the movie!")
     ap.add_argument("-d", "--date",
                     default='2020-03-18',
                     type=str,
@@ -21,7 +21,7 @@ def main():
                     help="Enter the resolution for your Image or Movie!")
     ap.add_argument("-t", "--theme",
                     default='light',
-                    help="Enter the theme Light or Dark")
+                    help="Enter the theme light or dark!")
     args = ap.parse_args()
     general_path = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/"
     url_list = {
