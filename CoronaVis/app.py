@@ -12,7 +12,7 @@ def main():
                     action="store_true",
                     help="Use -m to activate!")
     ap.add_argument("-d", "--date",
-                    default='2020-03-17',
+                    default='2020-03-18',
                     type=str,
                     help="Enter date in format of Year-Month-Day!")
     ap.add_argument("-r", "--res",

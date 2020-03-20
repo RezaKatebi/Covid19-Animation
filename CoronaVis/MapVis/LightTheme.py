@@ -1,6 +1,6 @@
 '''
     BlueMarbel
-    
+
     developed by Reza Katebi and Mehdi Rezaie Katebi&Rezaie Co.
     based on https://medium.com/udacity/creating-map-animations-with-python-97e24040f17b
     by Mat Leonard
@@ -71,19 +71,19 @@ class BlueMarble(object):
                 color='white',
                 fontsize=fontsize_date,
                 transform=ccrs.PlateCarree())
-        
+
         msg = '(c) Katebi&Rezaie\ngithub.com/RezaKatebi/Covid19-Animation'
-        self.ax.text(-165, -62, msg, color='white', 
-                     fontsize=5, transform=ccrs.PlateCarree())  
+        self.ax.text(-165, -62, msg, color='white',
+                     fontsize=12, transform=ccrs.PlateCarree())
 
 
         ax1 = self.fig.add_axes([0.4, 0.04, 0.3, 0.15])
         ax1.patch.set_facecolor('None')
-        
+
         colors = ["#ffee00", '#00a6f9']
         groups = ['Confirmed', 'Recovered']
         numbers = [df_date.Confirmed.sum(), df_date.Recovered.sum()]
-        
+
         if show_death:
             colors.append('#ff5483')
             groups.append('Death')
@@ -94,6 +94,7 @@ class BlueMarble(object):
             ax1.text(v, i, str(v), color=colors[i], fontweight='bold', fontsize=fontsize_labels, verticalalignment='center')
 
         ax1.barh(y_pos, numbers, color=colors)
+        print(self.max_val)
         ax1.set_xlim(0, self.max_val)
         ax1.set_yticks(y_pos)
         ax1.set_yticklabels(groups, color="white", fontsize=fontsize_labels)
