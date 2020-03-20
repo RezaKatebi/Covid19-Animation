@@ -41,7 +41,7 @@ def main():
         raise RuntimeError(f'{args.theme} must be light or dark')
 
     if not args.movie:
-        BM = MarbleMaker(df=df_merged, ouput_name=f"{args.date}.png",
+        BM = MarbleMaker(df=df_merged, ouput_name=f"{args.theme}_{args.date}.png",
                          max_val= max_last_day, resolution=args.res)
         BM.generatemap(args.date)
     else:
@@ -55,7 +55,7 @@ def main():
             os.makedirs(path)
 
         for i, date in tqdm(enumerate(alldates)):
-            BM = MarbleMaker(df=df_merged, ouput_name=f"{path}/{i}_{date}.png",
+            BM = MarbleMaker(df=df_merged, ouput_name=f"{path}/{i}_{args.theme}_{date}.png",
                              max_val= max_last_day, resolution=args.res)
             BM.generatemap(date)
 
