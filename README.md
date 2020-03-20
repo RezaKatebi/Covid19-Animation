@@ -45,7 +45,15 @@ ax.set_extent([-170, 179, -65, 70], crs=ccrs.PlateCarree())
 ```
 ![alt text](https://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73726/world.topo.bathy.200406.3x5400x2700.jpg "Sample Map")
 
-## Make Movie
+# Run
+## Single Frame
+You can use the command
+`$> python python app.py -d 2020-03-15 -t light -r low` to make the world map for date 2020-03-15, low resolution, with the light frame.
+
+Similarly, for the dark theme,
+`$> python python app.py -d 2020-03-15 -t dark`
+
+## Movie
 We provide a Shell script [makemovie.bash](https://github.com/RezaKatebi/Covid19-Animation/blob/master/CoronaVis/makemovie.bash) that can be used to create the frames in .png format and to combine them into a .mp4 clip.
 ```Shell
 #------------------------------------------------------
