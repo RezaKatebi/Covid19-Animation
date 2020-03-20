@@ -55,7 +55,7 @@ def main():
             os.makedirs(path)
 
         for i, date in tqdm(enumerate(alldates)):
-            BM = MarbleMaker(df=df_merged, ouput_name=f"{path}/{i}_{args.theme}_{date}.png",
+            BM = MarbleMaker(df=df_merged, ouput_name=f"{path}/{args.theme}_{date}.png",
                              max_val= max_last_day, resolution=args.res)
             BM.generatemap(date)
 
