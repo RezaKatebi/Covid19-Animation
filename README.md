@@ -46,6 +46,27 @@ ax.set_extent([-170, 179, -65, 70], crs=ccrs.PlateCarree())
 ![alt text](https://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73726/world.topo.bathy.200406.3x5400x2700.jpg "Sample Map")
 
 # Run
+Here are the command line arguments of the apps:
+* `-t` or `--theme` sets the theme of the frame. Options are light dark
+* `-m` or `--movie` activates making the movie (currenly the ffmpeg is not implemented)
+* `-d` or `--date` sets the specific date in format of YYYY-MM-DD
+* `r` or `--res` sets the resolution of the frame (currently implemented for the light theme only)
+
+To get the help, you can execute `python app.py --help`:
+```Shell
+ $> python app.py --help
+usage: app.py [-h] [-m] [-d DATE] [-r RES] [-t THEME]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -m, --movie           Use -m to make the movie!
+  -d DATE, --date DATE  Enter date in format of Year-Month-Day!
+  -r RES, --res RES     Enter the resolution for your Image or Movie!
+  -t THEME, --theme THEME
+                        Enter the theme light or dark!
+```
+
+
 ## Single Frame
 You can use the command
 `$> python app.py -d 2020-03-15 -t light -r low` to make the world map for date 2020-03-15, low resolution, with the light frame.
