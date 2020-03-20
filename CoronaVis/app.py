@@ -7,7 +7,7 @@ from tqdm import tqdm
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("-mm", "--movie",
+    ap.add_argument("-m", "--movie",
                     default=False,
                     action="store_true",
                     help="Use -m to activate!")
@@ -19,6 +19,9 @@ def main():
                     default='low',
                     type=str,
                     help="Enter the resolution for your Image or Movie!")
+    ap.add_argument("-t", "--theme",
+                    default='light',
+                    help="Enter the theme Light or Dark")
     args = ap.parse_args()
     general_path = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/"
     url_list = {
@@ -30,9 +33,16 @@ def main():
     DataLoader = MapVis.DFLoader(url_list)
     df_merged, max_last_day = DataLoader.load()
 
+    if args.theme == 'light':
+        MarbleMaker = MapVis.BlueMarble
+    elif args.theme == 'dark':
+        MarbleMaker = MapVis.DarkMarble
+    else:
+        raise RuntimeError(f'{args.theme} must be light or dark')
+
     if not args.movie:
-        BM = MapVis.BlueMarble(df=df_merged, ouput_name=f"{args.date}.png",
-                                max_val= max_last_day, resolution=args.res)
+        BM = MarbleMaker(df=df_merged, ouput_name=f"{args.date}.png",
+                         max_val= max_last_day, resolution=args.res)
         BM.generatemap(args.date)
     else:
         alldates = df_merged.Date.unique()
@@ -45,8 +55,8 @@ def main():
             os.makedirs(path)
 
         for i, date in tqdm(enumerate(alldates)):
-            BM = MapVis.BlueMarble(df=df_merged, ouput_name=f"{path}/{i}_{date}.png",
-                                    max_val= max_last_day, resolution=args.res)
+            BM = MarbleMaker(df=df_merged, ouput_name=f"{path}/{i}_{date}.png",
+                             max_val= max_last_day, resolution=args.res)
             BM.generatemap(date)
 
 
