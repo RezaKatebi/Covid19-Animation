@@ -1,13 +1,19 @@
 # Covid19-Animation
 This repo creates animation to visualize the spread of the virus.
 
-# Requirments 
+# Installation
+## Requirments 
+We provide the [corviz.yml](https://github.com/RezaKatebi/Covid19-Animation/blob/master/corviz.yml) file that you can use to set up the environment: `conda env create -f corviz.yml` 
+
+The software depends on
 - Pyhton >= 3
 - Numpy, Matplotlib
 - Pandas
-- Cartopy (instruction on instalaion is provided)
+- Cartopy >= 0.17 (instruction on instalaion is provided)
+- Basemap
+- ffmpeg (for making .mp4 animation)
 
-# Cartopy Installation and Custom Map Guide
+## Cartopy Installation and Custom Map Guide
 Cartopy is a package that is used to visualize maps on geological data. To install it first make a conda enviroment and then install cartopy using ```conda install -c conda-forge cartopy```. 
 
 To use custom background image, first use the following commands to find the path of the caratopy in the eniroment:
@@ -25,7 +31,7 @@ Next, from [NASA Blue Marble](https://visibleearth.nasa.gov/collection/1484/blue
       "low": "BM.jpg",
       "high": "BM_highres.png"}
 ```
-Now if you import the packages and use the following commands you will see earth map:
+Now if you import the packages and use the following commands (or run the script [test_custom_map.py](https://github.com/RezaKatebi/Covid19-Animation/blob/master/CoronaVis/test/test_custom_map.py)) you will see earth map:
 ```python
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
@@ -39,3 +45,33 @@ ax.set_extent([-170, 179, -65, 70], crs=ccrs.PlateCarree())
 ```
 ![alt text](https://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73726/world.topo.bathy.200406.3x5400x2700.jpg "Sample Map")
 
+## Make Movie
+We provide a Shell script [makemovie.bash](https://github.com/RezaKatebi/Covid19-Animation/blob/master/CoronaVis/makemovie.bash) that can be used to create the frames in .png format and to combine them into a .mp4 clip.
+```Shell
+#------------------------------------------------------
+#   
+#   Shell script to make a movie
+#   (c) Katebi&Rezaie Co.
+#   
+#   Steps
+#           1. make frames in png
+#           2. use ffmpeg to combine them into mp4
+#
+#------------------------------------------------------
+
+# Choose the theme: options are `dark` or `light`
+theme=dark
+echo "theme: "${theme}
+
+# Run app.py
+python app.py -m -t ${theme} 
+
+# Run ffmpeg
+dir=${PWD}/frames
+output_name=Covid19_${theme}.mp4
+echo "movie : "${output_name}
+
+echo "change to "${dir}
+cd ${dir}
+ffmpeg -pattern_type glob -framerate 6 -i ${theme}_"**.png" -c:v h264 -r 10 -s 1920x1080 -pix_fmt yuv420p ${output_name}
+```
