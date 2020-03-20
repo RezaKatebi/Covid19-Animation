@@ -1,5 +1,5 @@
 '''
-    DarkMarbel
+    DarkMarble
     
     developed by Mehdi Rezaie and Reza Katebi Katebi&Rezaie Co.
     based on https://cosmiccoding.com.au/tutorials/des_instituions
