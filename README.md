@@ -47,11 +47,11 @@ ax.set_extent([-170, 179, -65, 70], crs=ccrs.PlateCarree())
 ![alt text](https://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73726/world.topo.bathy.200406.3x5400x2700.jpg "Sample Map")
 
 # Run
-Here are the command line arguments of the apps:
+All you need to run the software is to do `python app.py`. Here are the command line arguments of the apps:
 * `-t` or `--theme` sets the theme of the frame. Options are light dark
 * `-m` or `--movie` activates making the movie (currenly the ffmpeg is not implemented)
 * `-d` or `--date` sets the specific date in format of YYYY-MM-DD
-* `r` or `--res` sets the resolution of the frame (currently implemented for the light theme only)
+* `-r` or `--res` sets the resolution of the frame (currently implemented for the light theme only)
 
 To get the help, you can execute `python app.py --help`:
 ```Shell
