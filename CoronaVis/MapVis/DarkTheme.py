@@ -61,60 +61,67 @@ class DarkMarble(object):
             for row in df_date.itertuples(index=False):
                 x, y = m(row.Long, row.Lat)
                 dist = ((x - X)**2 + (y - Y)**2)**0.25
-                z += (row.Confirmed/8.0e3)*np.exp(-dist * scale)
+                z += (row.Confirmed/8.5e3)*np.exp(-dist * scale)
 
             m.imshow(z, origin="lower", extent=[x0,x1,y0,y1], 
                      cmap=cmap, vmax=vmax, zorder=2, rasterized=True)        
             
             m.scatter(df_date.Long, df_date.Lat, latlon=True, c="#FFFFFF", 
-                     alpha=0.8, s=1.0e-4*df_date.Confirmed, zorder=3)
+                     alpha=0.8, s=0.5e-4*df_date.Confirmed, zorder=3)
 
-            
-        plt.title("Covid-19 around the world", fontsize=14, 
-                  color="#EEEEEE", fontname="serif")
+        
+        plt.text(*m(-5, 80),
+                 "COVID-19", fontsize=12, 
+                  color="#EEEEEE", fontweight='bold')
         
         msg = '(c) Katebi&Rezaie\ngithub.com/RezaKatebi/Covid19-Animation'
-        plt.text(*m(-165, -62), msg, color='yellow', fontsize=5)        
+        plt.text(*m(-165, -62), msg, 
+                 color='#ffffff', fontsize=5, 
+                 fontweight='bold')   
 
 
         t = pd.to_datetime(str(date))
         date = t.strftime('%b %d, %Y')
 
-        date_x = 0
-        date_y = -45
+        date_x = -10
+        date_y = -60
         plt.text(*m(date_x, date_y),
-                f"{date}",
-                color='white',
-                fontsize=15)
+                f"{date}".upper(),
+                color='#ffffff',
+                fontsize=10,
+                fontweight='bold')
 
         fig = plt.gcf()
         fig.patch.set_facecolor("#000000")
 
         # Add bar plot
-        ax1 = plt.axes([0.45, 0.175, 0.15, 0.025])
+        ax1 = plt.axes([0.45, 0.175, 0.15, 0.02])
         ax1.patch.set_facecolor('None')
 
-        lcolors = ['white'] #'#4b34e2', '#a6a3ba']
-        groups = ['Confirmed']#, 'Recovered', 'Death']
+        lcolors = ['#768a16'] #'#4b34e2', '#a6a3ba']
+        groups = ['CONFIRMED']#, 'Recovered', 'Death']
         numbers = [df_date.Confirmed.sum()] #,40, 20]
         y_pos = np.arange(len(numbers))
 
         for i, v in enumerate(numbers):
-            ax1.text(v+3, i, str(v), color=lcolors[i], 
+                
+            ax1.text(1.05*v, i, f'{v:,.0f}',
+                     color='#ffffff', 
                      fontweight='bold', 
                      verticalalignment='center',
-                     fontsize=10)
+                     fontsize=8)
 
         ##ax1.set_title(f'{date}', fontsize=20, color='w')
-        ax1.barh(y_pos, numbers, color=lcolors)
+        ax1.barh(y_pos, numbers, height=0.4, color=lcolors)
         ax1.set_yticks(y_pos)
         ax1.set_xlim(0, self.max_val)
-        ax1.set_yticklabels(groups, color='white', fontsize=10)
+        ax1.set_yticklabels(groups, color='#ffffff', fontsize=8, fontweight='bold')
         ax1.set_xticks([])
         for side in ['left', 'top', 'bottom', 'right']:
             ax1.spines[side].set_visible(False)
 
-        #fig.tight_layout(pad=-0.5)
+        #fig.tight_layout(pad=-0.5)        
+        #plt.show()
         fig.savefig(self.ouput_name, dpi=100, facecolor='black', bbox_inches='tight')
         return None
 

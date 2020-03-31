@@ -23,4 +23,4 @@ echo "movie : "${output_name}
 
 echo "change to "${dir}
 cd ${dir}
-ffmpeg -pattern_type glob -framerate 6 -i ${theme}_"**.png" -c:v h264 -r 10 -s 1920x1080 -pix_fmt yuv420p ${output_name}
+#ffmpeg -pattern_type glob -framerate 6 -i ${theme}_"**.png" -c:v h264 -r 10 -s 1920x1080 -pix_fmt yuv420p ${output_name}
