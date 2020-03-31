@@ -33,18 +33,17 @@ def main():
     print('new data has a different format. It has confirmed cases only!')
     url_list = {'world':f'{general_path}time_series_covid19_confirmed_global.csv',
                 'us':f'{general_path}time_series_covid19_confirmed_US.csv'}
-                
-    
+
+
     DataLoader = MapVis.DFLoaderNew(url_list) # MR: Mar 31, new data
     df_merged, max_last_day = DataLoader.load()
 
     if args.theme == 'light':
-        msg = 'new data does not have the number recovered cases!'
-        msg += 'https://github.com/CSSEGISandData/COVID-19/issues/1250'
-        raise RuntimeError(msg)
-        
+        # msg = 'new data does not have the number recovered cases!'
+        # msg += 'https://github.com/CSSEGISandData/COVID-19/issues/1250'
+        # raise RuntimeError(msg)
         MarbleMaker = MapVis.BlueMarble
-        
+
     elif args.theme == 'dark':
         MarbleMaker = MapVis.DarkMarble
 

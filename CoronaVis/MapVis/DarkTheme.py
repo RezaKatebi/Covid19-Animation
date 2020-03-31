@@ -1,6 +1,6 @@
 '''
     DarkMarble
-    
+
     developed by Mehdi Rezaie and Reza Katebi Katebi&Rezaie Co.
     based on https://cosmiccoding.com.au/tutorials/des_instituions
     by Samuel Hinton
@@ -17,33 +17,33 @@ from mpl_toolkits.basemap import Basemap
 from matplotlib.colors import LinearSegmentedColormap as LSC
 
 class DarkMarble(object):
- 
+
     def __init__(self, df, ouput_name, max_val, resolution='low'):
         # MR: different resolution is not implemented yet
         self.df = df
         self.ouput_name = ouput_name
         self.max_val = max_val
-        
+
     def generatemap(self,
                     date,
                     scale=1e4,
                     fontsize_date=36,
                     fontsize_labels=22,
                     show_death=False,
-                    addglow=True, 
+                    addglow=True,
                     **kwargs
                     ):
-        
+
         df_date = self.df[self.df.Date == date]
 
         m = self.get_base_frame()
-        m.scatter(df_date.Long, df_date.Lat, latlon=True, 
+        m.scatter(df_date.Long, df_date.Lat, latlon=True,
                   c='#d7ff1f', s=0.03*df_date.Confirmed, zorder=1,
                   alpha=0.3)
-        
-        
+
+
         if addglow:
-            
+
             nmesh = 500
             x0, y0 = m(-170, -80)
             x1, y1 = m(190, 90)
@@ -51,8 +51,8 @@ class DarkMarble(object):
             X, Y = np.meshgrid(xs, ys)
             zs = []
             scale = 1.2
-            
-            
+
+
             c = '#d7ff1f'
             cmap = LSC.from_list("fade", [c + "00", c,"#FFFFFF"], N=1000)
             vmax = min(2, 0.7 * df_date.shape[0]**0.7)
@@ -63,21 +63,21 @@ class DarkMarble(object):
                 dist = ((x - X)**2 + (y - Y)**2)**0.25
                 z += (row.Confirmed/8.5e3)*np.exp(-dist * scale)
 
-            m.imshow(z, origin="lower", extent=[x0,x1,y0,y1], 
-                     cmap=cmap, vmax=vmax, zorder=2, rasterized=True)        
-            
-            m.scatter(df_date.Long, df_date.Lat, latlon=True, c="#FFFFFF", 
+            m.imshow(z, origin="lower", extent=[x0,x1,y0,y1],
+                     cmap=cmap, vmax=vmax, zorder=2, rasterized=True)
+
+            m.scatter(df_date.Long, df_date.Lat, latlon=True, c="#FFFFFF",
                      alpha=0.8, s=0.5e-4*df_date.Confirmed, zorder=3)
 
-        
+
         plt.text(*m(-5, 80),
-                 "COVID-19", fontsize=12, 
+                 "COVID-19", fontsize=12,
                   color="#EEEEEE", fontweight='bold')
-        
+
         msg = '(c) Katebi&Rezaie\ngithub.com/RezaKatebi/Covid19-Animation'
-        plt.text(*m(-165, -62), msg, 
-                 color='#ffffff', fontsize=5, 
-                 fontweight='bold')   
+        plt.text(*m(-165, -62), msg,
+                 color='#ffffff', fontsize=5,
+                 fontweight='bold')
 
 
         t = pd.to_datetime(str(date))
@@ -99,15 +99,15 @@ class DarkMarble(object):
         ax1.patch.set_facecolor('None')
 
         lcolors = ['#768a16'] #'#4b34e2', '#a6a3ba']
-        groups = ['CONFIRMED']#, 'Recovered', 'Death']
+        groups = ['CONFIRMED'] #, 'Recovered', 'Death']
         numbers = [df_date.Confirmed.sum()] #,40, 20]
         y_pos = np.arange(len(numbers))
 
         for i, v in enumerate(numbers):
-                
+
             ax1.text(1.05*v, i, f'{v:,.0f}',
-                     color='#ffffff', 
-                     fontweight='bold', 
+                     color='#ffffff',
+                     fontweight='bold',
                      verticalalignment='center',
                      fontsize=8)
 
@@ -120,27 +120,27 @@ class DarkMarble(object):
         for side in ['left', 'top', 'bottom', 'right']:
             ax1.spines[side].set_visible(False)
 
-        #fig.tight_layout(pad=-0.5)        
+        #fig.tight_layout(pad=-0.5)
         #plt.show()
         fig.savefig(self.ouput_name, dpi=100, facecolor='black', bbox_inches='tight')
         return None
 
 
-    
+
     def get_base_frame(self):
-        
+
         # Lets define some colors
         bg_color = "#000000"
         coast_color = "#333333"
         country_color = "#222222"
-        
+
         plt.figure(figsize=(12, 6))
 
-        m = Basemap(projection='cyl', llcrnrlat=-80,urcrnrlat=90, 
+        m = Basemap(projection='cyl', llcrnrlat=-80,urcrnrlat=90,
                     llcrnrlon=-170, urcrnrlon=190, area_thresh=10000.)
         m.fillcontinents(color=bg_color, lake_color=bg_color, zorder=-2)
         m.drawcoastlines(color=coast_color, linewidth=1.0, zorder=-1)
         m.drawcountries(color=country_color, linewidth=1.0, zorder=-1)
         m.drawmapboundary(fill_color=bg_color, zorder=-2)
-        
-        return m        
+
+        return m
