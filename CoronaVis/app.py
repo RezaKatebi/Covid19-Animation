@@ -24,7 +24,7 @@ def main():
                     help="Enter the theme Light or Dark")
     args = ap.parse_args()
     general_path = ("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/"
-                    "master/csse_covid_19_data/csse_covid_19_time_series/")
+                   "master/csse_covid_19_data/csse_covid_19_time_series/")
     #url_list = {
     #    "Confirmed": f"{general_path}time_series_19-covid-Confirmed.csv",
     #    "Deaths": f"{general_path}time_series_19-covid-Deaths.csv",

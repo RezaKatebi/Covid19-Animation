@@ -37,9 +37,10 @@ class DFLoaderNew:
 
     def load(self):
         df_all = pd.concat([self.df_us, self.df_global])
-        df_all.dropna(axis=1, inplace=True)
-        df_long = df_all.melt(id_vars =["Country/Region", "Lat", "Long"],\
-                          var_name="Date", value_name='Confirmed')
+
+        #df_all.dropna(axis=1, inplace=True)
+        df_long = df_all.melt(id_vars =["Province/State", "Country/Region", "Lat", "Long"],
+                               var_name="Date", value_name='Confirmed')
         df_long["Date"] = pd.to_datetime(df_long["Date"])
         min_val = df_long["Confirmed"].min()
         max_val = df_long["Confirmed"].max()
@@ -77,11 +78,11 @@ class DFLoaderNew:
             lat_mean = np.nanmean(self.df_us.loc[mask_state, 'Lat'])
 
             if np.isnan(long_mean): # if NaN, use global Mean
-                print(state)
+                #print(state)
                 long_mean = long_glob*1
 
             if np.isnan(lat_mean):
-                print(state)
+                #print(state)
                 lat_mean = lat_glob*1
 
             # --- fill

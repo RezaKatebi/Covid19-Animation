@@ -34,11 +34,10 @@ class BlueMarble(object):
     def generatemap(self,
                     date,
                     scale=1e4,
-                    fontsize_date=36,
-                    fontsize_labels=22,
+                    fontsize_date=25,
+                    fontsize_labels=18,
                     show_death=False
                     ):
-        print(self.df.head())
         df_date = self.df[self.df.Date == date]
         self.ax.scatter(df_date.Long.values, df_date.Lat.values,
                    s=scale * df_date.ConfNorm.values,
@@ -65,8 +64,8 @@ class BlueMarble(object):
         t = pd.to_datetime(str(date))
         date = t.strftime('%b %d, %Y')
 
-        date_x = 0
-        date_y = -45
+        date_x = -10
+        date_y = -54
 
         self.ax.text(date_x, date_y,
                 f"{date}",
@@ -78,14 +77,12 @@ class BlueMarble(object):
         self.ax.text(-165, -62, msg, color='white',
                      fontsize=12, transform=ccrs.PlateCarree())
 
-        ax1 = self.fig.add_axes([0.4, 0.04, 0.3, 0.15])
+        ax1 = self.fig.add_axes([0.4, 0.10, 0.3, 0.03])
         ax1.patch.set_facecolor('None')
 
         colors = ["#ffee00"]  #, '#00a6f9']
         groups = ['Confirmed'] #, 'Recovered']
-        print(df_date.head())
         numbers = [df_date.Confirmed.sum()] #, df_date.Recovered.sum()]
-        print(numbers)
         # if show_death:
         #     colors.append('#ff5483')
         #     groups.append('Death')
@@ -93,10 +90,12 @@ class BlueMarble(object):
 
         y_pos = np.arange(len(numbers))
         for i, v in enumerate(numbers):
-            ax1.text(v, i, str(v), color=colors[i], fontweight='bold', fontsize=fontsize_labels, verticalalignment='center')
+            ax1.text(v, i, f'{v:,.0f}',
+                    color=colors[i], fontweight='bold',
+                    fontsize=fontsize_labels,
+                    verticalalignment='center')
 
-        ax1.barh(y_pos, numbers, color=colors)
-        print(self.max_val)
+        ax1.barh(y_pos, numbers, height=0.75, color=colors)
         ax1.set_xlim(0, self.max_val)
         ax1.set_yticks(y_pos)
         ax1.set_yticklabels(groups, color="white", fontsize=fontsize_labels)
