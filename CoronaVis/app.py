@@ -23,20 +23,30 @@ def main():
                     default='light',
                     help="Enter the theme light or dark!")
     args = ap.parse_args()
-    general_path = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/"
-    url_list = {
-        "Confirmed": f"{general_path}time_series_19-covid-Confirmed.csv",
-        "Deaths": f"{general_path}time_series_19-covid-Deaths.csv",
-        "Recovered": f"{general_path}time_series_19-covid-Recovered.csv"
-    }
+    general_path = ("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/"
+                   "master/csse_covid_19_data/csse_covid_19_time_series/")
+    #url_list = {
+    #    "Confirmed": f"{general_path}time_series_19-covid-Confirmed.csv",
+    #    "Deaths": f"{general_path}time_series_19-covid-Deaths.csv",
+    #    "Recovered": f"{general_path}time_series_19-covid-Recovered.csv"
+    #}
+    print('new data has a different format. It has confirmed cases only!')
+    url_list = {'world':f'{general_path}time_series_covid19_confirmed_global.csv',
+                'us':f'{general_path}time_series_covid19_confirmed_US.csv'}
 
-    DataLoader = MapVis.DFLoader(url_list)
+
+    DataLoader = MapVis.DFLoaderNew(url_list) # MR: Mar 31, new data
     df_merged, max_last_day = DataLoader.load()
 
     if args.theme == 'light':
+        # msg = 'new data does not have the number recovered cases!'
+        # msg += 'https://github.com/CSSEGISandData/COVID-19/issues/1250'
+        # raise RuntimeError(msg)
         MarbleMaker = MapVis.BlueMarble
+
     elif args.theme == 'dark':
         MarbleMaker = MapVis.DarkMarble
+
     else:
         raise RuntimeError(f'{args.theme} must be light or dark')
 
@@ -54,7 +64,7 @@ def main():
         if not os.path.exists(path):
             os.makedirs(path)
 
-        for i, date in tqdm(enumerate(alldates)):
+        for date in tqdm(alldates):
             BM = MarbleMaker(df=df_merged, ouput_name=f"{path}/{args.theme}_{date}.png",
                              max_val= max_last_day, resolution=args.res)
             BM.generatemap(date)
