@@ -1,8 +1,8 @@
 #------------------------------------------------------
-#   
+#
 #   Shell script to make a movie
 #   (c) Katebi&Rezaie Co.
-#   
+#
 #   Steps
 #           1. make frames in png
 #           2. use ffmpeg to combine them into mp4
@@ -10,11 +10,12 @@
 #------------------------------------------------------
 
 # Choose the theme: options are `dark` or `light`
-theme=dark
+theme=$1
+res=$2
 echo "theme: "${theme}
 
 # Run app.py
-python app.py -m -t ${theme} 
+python app.py -m -t ${theme} -r ${res}
 
 # Run ffmpeg
 dir=${PWD}/frames
